@@ -50,6 +50,7 @@ if pdf_file:
     st.text(refs)
 
     st.header(labels["images"][lang])
+    st.write("images found in PDF:")
     if images:
         for img in images:
             st.image(img)
