@@ -28,7 +28,7 @@ if pdf_file:
     language = detect_document_language(text_blocks)
     abstract, page_number_ = extract_abstract_lines(pdf_file, language)
     title = extract_title_lines(pdf_file)
-    #images = extract_images(pdf_file, 'images')
+    images = extract_images(pdf_file)
     result = extract_title_and_following_text(pdf_file, title, page_number_)
     authors = get_text_before_abstract_from_following_text(result['text_after_title'], language)
     title = result['matched_title']
@@ -50,5 +50,5 @@ if pdf_file:
     st.text(refs)
 
     st.header(labels["images"][lang])
-    #for img_path in images:
-    #    st.image(img_path)
+    for img_bytes in images:
+        st.image(img_bytes)
