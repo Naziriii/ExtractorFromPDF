@@ -5,8 +5,10 @@ import fitz
 ##################################################################
 
 
-def extract_images(pdf_path, output_folder):
-    pdf_document = fitz.open(pdf_path)
+def extract_images(uploaded_file, output_folder):
+    #pdf_document = fitz.open(pdf_path)
+    uploaded_file.seek(0)
+    doc = fitz.open(stream=uploaded_file.read(), filetype="pdf")
     image_files = []
     for page_num in range(len(pdf_document)):
         page = pdf_document.load_page(page_num)

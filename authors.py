@@ -11,7 +11,7 @@ def title_to_flexible_regex(raw_title):
     pattern = r'\s*'.join(map(re.escape, compact_title))
     return re.compile(pattern, re.IGNORECASE)
 
-def extract_title_and_following_text(pdf_path, title_variation, page_num):
+def extract_title_and_following_text(uploaded_file, title_variation, page_num):
     pattern = title_to_flexible_regex(title_variation)
 
     skip_flag = False
@@ -19,7 +19,9 @@ def extract_title_and_following_text(pdf_path, title_variation, page_num):
     if(page_num == 1):
         skip_flag = True
 
-    doc = fitz.open(pdf_path)
+    #doc = fitz.open(pdf_path)
+    uploaded_file.seek(0)
+    doc = fitz.open(stream=uploaded_file.read(), filetype="pdf")
     for page_number, page in enumerate(doc, start=1):
         if (skip_flag):
             skip_flag = False

@@ -42,8 +42,10 @@ REFERENCE_ENTRY_PATTERNS = [
 
 MAX_NON_REF_LINES = 5
 
-def extract_references_from_pdf(path):
-    doc = fitz.open(path)
+def extract_references_from_pdf(uploaded_file):
+    #doc = fitz.open(path)
+    uploaded_file.seek(0)
+    doc = fitz.open(stream=uploaded_file.read(), filetype="pdf")
     all_lines = []
 
     for page in doc:

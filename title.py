@@ -5,8 +5,10 @@ import fitz
 ##################################################################
 
 
-def extract_title_lines(pdf_path):
-    doc = fitz.open(pdf_path)
+def extract_title_lines(uploaded_file):
+    #doc = fitz.open(pdf_path)
+    uploaded_file.seek(0)
+    doc = fitz.open(stream=uploaded_file.read(), filetype="pdf")
     title_lines = []
 
     max_font_size = 0
