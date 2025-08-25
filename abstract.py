@@ -10,7 +10,6 @@ HDR_EN = ["keywords", "introduction", "keyword"]
 HDR_FA = ["کلیدواژه", "کلیدواژه‌ها", "واژگان", "مقدمه", "کلید"]
 
 def extract_text_blocks(uploaded_file):
-    #doc = fitz.open(pdf_path)
     uploaded_file.seek(0)
     doc = fitz.open(stream=uploaded_file.read(), filetype="pdf")
     all_pages_text = []
@@ -39,7 +38,6 @@ def is_bold_font(font_name):
     return "Bold" in font_name or "bold" in font_name
 
 def extract_abstract_lines(uploaded_file, lang):
-    #doc = fitz.open(pdf_path)
     uploaded_file.seek(0)
     doc = fitz.open(stream=uploaded_file.read(), filetype="pdf")
     abstarct_lines = []

@@ -19,7 +19,6 @@ def extract_title_and_following_text(uploaded_file, title_variation, page_num):
     if(page_num == 1):
         skip_flag = True
 
-    #doc = fitz.open(pdf_path)
     uploaded_file.seek(0)
     doc = fitz.open(stream=uploaded_file.read(), filetype="pdf")
     for page_number, page in enumerate(doc, start=1):
