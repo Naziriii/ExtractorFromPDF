@@ -50,5 +50,8 @@ if pdf_file:
     st.text(refs)
 
     st.header(labels["images"][lang])
-    for img in images:
-        st.image(img)
+    if images:
+        for img in images:
+            st.image(img)
+    else:
+        st.write("No images found in PDF")
