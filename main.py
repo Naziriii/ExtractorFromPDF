@@ -52,3 +52,4 @@ if pdf_file:
     st.header(labels["images"][lang])
     for img_bytes in images:
         st.image(img_bytes)
+        print("photo")
