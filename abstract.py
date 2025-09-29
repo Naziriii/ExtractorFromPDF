@@ -7,7 +7,9 @@ from langdetect import detect
 
 HDR_EN = ["keywords", "introduction", "keyword"]
 
-HDR_FA = ["کلیدواژه", "کلیدواژه‌ها", "واژگان", "مقدمه", "کلید"]
+HDR_FA = ["کلیدواژه", "کلیدواژه‌ها", "مقدمه", "واژه‌های کلیدی", "يﻫﺎ  واژهﮐﻠﯿﺪي"] 
+
+HDR_AR = ["الکلمات الرئيس ", "الكلماتالرئيسة", "الکلماتالرئيسة", "المقدمة", "مقدمة"]
 
 def extract_text_blocks(uploaded_file):
     uploaded_file.seek(0)
@@ -72,31 +74,45 @@ def extract_abstract_lines(uploaded_file, lang):
                     line_text += text# + " "
                     temp_txt += text
                     if(lang == "fa"):
-                        if(("چکیده" in temp_txt) or ("ﭼﻜﻴﺪﻩ" in temp_txt)):
+                        if(("چکیده" in temp_txt) or ("ﭼﻜﻴﺪﻩ" in temp_txt) or ("چكيده" in temp_txt) or ("ﭼﮑﯿﺪه" in temp_txt) or ("چکید ه" in temp_txt)): 
                             abs_flag = 1
-                    else:
+                            page_number_ = page.number
+                    elif (lang == "en"):
                         if("abstract" in temp_txt.lower()):
                             abs_flag = 1
+                            page_number_ = page.number
+                    elif (lang == "ar"):
+                        if(("امللخص" in temp_txt) or ("امللخّص" in temp_txt) or ("ملخص البحث" in temp_txt) or ("املستخلص" in temp_txt) or ("الملخص" in temp_txt)):
+                            abs_flag = 1
+                            page_number_ = page.number
                     if(abs_flag):
                         if(lang == "fa"):
                             for word in HDR_FA:
                                 if(word in temp_txt):
                                     end_flag = 1
+                                    print("end")
+                                    print(word)
                                     break
-                        else:
+                        elif(lang == "en"):
                             for word in HDR_EN:
                                 if(word in temp_txt.lower()):
                                     end_flag = 1
                                     break
+                        elif(lang == "ar"):
+                            for word in HDR_AR:
+                                if(word in temp_txt):
+                                    end_flag = 1
+                                    print("end")
+                                    print(word)
+                                    break
                         if(size_check_flag):
                             if(span["size"] > first_abstract_size+1):
                                 end_flag = 1
-                        if(bold_check_flag):
-                            if(is_bold_font(span["font"])):
-                                end_flag = 1
-                        if(end_flag):
-                            page_number_ = page.number
-                            break
+                                print("size")
+                        #if(bold_check_flag): # commented because of bold words in abstract 
+                        #    if(is_bold_font(span["font"])):
+                        #        end_flag = 1
+                        #        print("bold")
                     if(abs_flag):
                         if(abstract_counter > 0):
                             abstarct_lines.append(text.strip())
