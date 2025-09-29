@@ -19,7 +19,8 @@ REFERENCE_HEADINGS = [
     r'\bﻣﻨﺎﺑﻊ\b',
     r'\bﻣﺮﺟﻊ\b', 
     r'\bاملصادر واملراجع\b',
-    r'\bالمصادر والمراجع\b'
+    r'\bالمصادر والمراجع\b',
+    r'\bکتابنامه\b'
 ]
 
 END_REFERENCE_HEADINGS = [
