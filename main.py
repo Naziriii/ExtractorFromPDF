@@ -10,13 +10,17 @@ from references import extract_references_from_pdf
 ##################################################################
 
 labels = {
-    "title": {"en": "Title", "fa": "عنوان"},
-    "abstract": {"en": "Abstract", "fa": "چکیده"},
-    "authors": {"en": "Authors", "fa": "نویسنده ها"},
-    "images": {"en": "Images", "fa": "تصاویر"},
-    "upload": {"en": "Upload PDF", "fa": "بارگذاری PDF"},
-    "refs": {"en": "References", "fa": "منابع"}
+    "title": {"en": "Title", "fa": "عنوان", "ar": "عنوان"},
+    "abstract": {"en": "Abstract", "fa": "چکیده", "ar": "چکیده"},
+    "authors": {"en": "Authors", "fa": "نویسنده ها", "ar": "نویسنده ها"},
+    "images": {"en": "Images", "fa": "تصاویر", "ar": "تصاویر"},
+    "upload": {"en": "Upload PDF", "fa": "بارگذاری PDF", "ar": "بارگذاری PDF"},
+    "refs": {"en": "References", "fa": "منابع", "ar": "منابع"}
 }
+
+st.set_page_config(page_title="PDF Text Extractor")
+
+st.title("📄 PDF Text Extractor")
 
 st.title(labels["upload"]["en"])
 
@@ -27,7 +31,7 @@ if pdf_file:
     text_blocks = extract_text_blocks(pdf_file)
     language = detect_document_language(text_blocks)
     abstract, page_number_ = extract_abstract_lines(pdf_file, language)
-    title = extract_title_lines(pdf_file)
+    title = extract_title_lines(pdf_file, language)
     images = extract_images(pdf_file)
     result = extract_title_and_following_text(pdf_file, title, page_number_)
     authors = get_text_before_abstract_from_following_text(result['text_after_title'], language)

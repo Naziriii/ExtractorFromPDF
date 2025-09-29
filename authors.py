@@ -22,6 +22,7 @@ def extract_title_and_following_text(uploaded_file, title_variation, page_num):
     uploaded_file.seek(0)
     doc = fitz.open(stream=uploaded_file.read(), filetype="pdf")
     for page_number, page in enumerate(doc, start=1):
+        print(page_num, skip_flag)
         if (skip_flag):
             skip_flag = False
             continue
@@ -50,13 +51,27 @@ def normalize_farsi_text(text):
 
 def get_text_before_abstract_from_following_text(text, lang):
     if(lang == "fa"):
-        match = match = re.search(r'چ\s*ک\s*ی\s*د\s*ه', text)
+        match = re.search(r'چ\s*ک\s*ی\s*د\s*ه', text)
         if not match:
             match = re.search(r'\bچکیده\b[:\-]?', text)
             if not match:
                 match = re.search(r'\bﭼﻜﻴﺪﻩ\b[:\-]?', text)
-    else:
+                if not match:
+                    match = re.search(r'\bچكيده\b[:\-]?', text) 
+                    if not match: 
+                        match = re.search(r'\bﭼﮑﯿﺪه\b[:\-]?', text)
+    elif (lang == "en"):
         match = re.search(r'\babstract\b[:\-]?', text, re.IGNORECASE)  # matches "abstract", "abstract:", "abstract-"
+    elif(lang == "ar"):
+        match = re.search(r'\bامللخص\b[:\-]?', text)
+        if not match:
+            match = re.search(r'\bامللخّص\b[:\-]?', text)
+            if not match:
+                match = re.search(r'\bملخص البحث\b[:\-]?', text)
+                if not match:
+                    match = re.search(r'\bاملستخلص\b[:\-]?', text)
+                    if not match:
+                        match = re.search(r'\bالملخص\b[:\-]?', text)
     if match:
         return text[:match.start()].strip()
     else:

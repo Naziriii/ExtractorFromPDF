@@ -13,10 +13,13 @@ REFERENCE_HEADINGS = [
     r'\bWorks Cited\b',
     r'\bمنابع\b',
     r'\bعبانم\b',
-    r'\bمراجع\b'
+    r'\bمراجع\b',
     r'\bعجارم\b',
     r'\bمراجع\b',
-    r'\bﻣﻨﺎﺑﻊ\b' 
+    r'\bﻣﻨﺎﺑﻊ\b',
+    r'\bﻣﺮﺟﻊ\b', 
+    r'\bاملصادر واملراجع\b',
+    r'\bالمصادر والمراجع\b'
 ]
 
 END_REFERENCE_HEADINGS = [
@@ -40,7 +43,7 @@ REFERENCE_ENTRY_PATTERNS = [
     r'^\* '            # *
 ]
 
-MAX_NON_REF_LINES = 5
+MAX_NON_REF_LINES = 6 
 
 def extract_references_from_pdf(uploaded_file):
     uploaded_file.seek(0)
